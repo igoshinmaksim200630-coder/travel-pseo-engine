@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{site_name} | Smart European Travel Routes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-indigo-600 font-bold text-xl tracking-tight">
+                <i data-lucide="compass" class="w-6 h-6"></i>
+                <span>{site_name}</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#" class="hover:text-indigo-600 transition">Routes</a>
+                <a href="#" class="hover:text-indigo-600 transition">About Project</a>
+                <a href="#" class="hover:text-indigo-600 transition">Contacts</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-20 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full border border-indigo-500/30">
+                AI-Powered Travel Analytics 2026
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mt-4 mb-6 bg-gradient-to-r from-white via-slate-200 to-indigo-200 bg-clip-text text-transparent">
+                Find the Cheapest & Fastest Ways <br class="hidden sm:inline">to Travel Across Europe
+            </h1>
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-10">
+                Compare live schedules, distances, and estimated prices for trains, buses, and flights across 1,100+ European destinations.
+            </p>
+
+            <div class="max-w-xl mx-auto relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-400 transition-colors">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </div>
+                <input type="text" id="routeSearch" onkeyup="filterRoutes()" placeholder="Where do you want to go? (e.g. Amsterdam, Berlin...)" 
+                       class="w-full pl-12 pr-4 py-4 bg-white text-slate-900 placeholder-slate-400 font-medium rounded-2xl shadow-2xl border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-base">
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-start space-x-4">
+            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><i data-lucide="badge-check"></i></div>
+            <div>
+                <h3 class="font-bold text-slate-900 mb-1">Verified Routes</h3>
+                <p class="text-sm text-slate-500">All algorithms are calibrated for actual 2026 transit networks.</p>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-start space-x-4">
+            <div class="p-3 bg-amber-50 text-amber-600 rounded-xl"><i data-lucide="banknote"></i></div>
+            <div>
+                <h3 class="font-bold text-slate-900 mb-1">Price Optimization</h3>
+                <p class="text-sm text-slate-500">Algorithmic cost estimation helping you secure the lowest fares.</p>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-start space-x-4">
+            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl"><i data-lucide="zap"></i></div>
+            <div>
+                <h3 class="font-bold text-slate-900 mb-1">Instant Forwarding</h3>
+                <p class="text-sm text-slate-500">Direct secure checkout via official European transit carriers.</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full">
+        <div class="sm:flex sm:items-center sm:justify-between mb-8 border-b border-slate-200 pb-5">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900">Explore Popular European Destinations</h2>
+                <p class="mt-2 text-sm text-slate-500">Select your route to get full analytical guides, tips, and direct booking options.</p>
+            </div>
+            <div class="mt-4 sm:mt-0 bg-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600" id="routeCount">
+                Showing all routes
+            </div>
+        </div>
+
+        <div id="routesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {routes_links}
+        </div>
+        
+        <div id="noResults" class="hidden text-center py-12 text-slate-400 font-medium">
+            <i data-lucide="map-pin-off" class="w-12 h-12 mx-auto mb-3 text-slate-300"></i>
+            No routes found matching your request.
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2026 {site_name}. Built for smart travelers. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация иконок
+        lucide.createIcons();
+
+        function filterRoutes() {
+            const input = document.getElementById('routeSearch');
+            const filter = input.value.toLowerCase();
+            const grid = document.getElementById('routesGrid');
+            const cards = grid.getElementsByTagName('a');
+            const noResults = document.getElementById('noResults');
+            const countBadge = document.getElementById('routeCount');
+            
+            let visibleCount = 0;
+
+            for (let i = 0; i < cards.length; i++) {
+                const text = cards[i].textContent || cards[i].innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                    visibleCount++;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            // Показываем заглушку, если ничего не нашли
+            if (visibleCount === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                countBadge.textContent = "0 routes found";
+            } else {
+                grid.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                countBadge.textContent = `Found ${visibleCount} routes`;
+            }
+        }
+    </script>
+</body>
+</html>
