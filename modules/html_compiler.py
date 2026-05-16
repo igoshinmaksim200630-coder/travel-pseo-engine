@@ -8,7 +8,7 @@ def compile_site_pages(routes_list):
     """
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # 1. Загружаем шаблоны
+    # Загружаем шаблоны
     with open(os.path.join(TEMPLATES_DIR, "base_landing.html"), "r", encoding="utf-8") as f:
         landing_template = f.read()
 
@@ -17,7 +17,7 @@ def compile_site_pages(routes_list):
 
     routes_links_html = []
 
-    # 2. Генерируем страницы маршрутов
+    # Генерируем внутренние страницы маршрутов
     for route in routes_list:
         partner_url = PARTNER_URL_TEMPLATE.format(
             partner_id=PARTNER_ID,
@@ -27,7 +27,7 @@ def compile_site_pages(routes_list):
 
         plane_price_display = f"€{route['plane_price']}" if route['plane_price'] != "N/A" else "N/A"
 
-        # Безопасная пошаговая замена для внутренних страниц
+        # Пошагово наполняем шаблон маршрута
         page_html = route_template
         replacements_route = {
             "{site_name}": SITE_NAME,
@@ -52,7 +52,7 @@ def compile_site_pages(routes_list):
         with open(os.path.join(OUTPUT_DIR, route_filename), "w", encoding="utf-8") as f:
             f.write(page_html)
 
-        # Создаем карточку-ссылку для главной
+        # Создаем плитку-ссылку для главной страницы
         link_card = f"""
         <a href="{route_filename}" class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 transition flex items-center justify-between group">
             <div>
@@ -64,7 +64,7 @@ def compile_site_pages(routes_list):
         """
         routes_links_html.append(link_card)
 
-    # 3. Собираем главную страницу (index.html)
+    # Собираем главную страницу (index.html)
     all_links_string = "\n".join(routes_links_html)
     
     compiled_landing_html = landing_template
@@ -79,4 +79,4 @@ def compile_site_pages(routes_list):
     with open(os.path.join(OUTPUT_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(compiled_landing_html)
 
-    print(f" LOG: Компилятор успешно собрал {len(routes_links_html)} веб-страниц в папке 'public'!")
+    print(f"📦 LOG: Компилятор успешно собрал {len(routes_links_html)} веб-страниц в папке 'public'!")
